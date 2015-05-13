@@ -19,7 +19,6 @@ class Admins::LinksController < ApplicationController
 
   def create
     @link = current_user.links.build(link_params)
-    binding.pry
     if @link.save
       redirect_to admins_link_path(@link), notice: 'Link was successfully created.'
     else

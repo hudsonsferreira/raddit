@@ -48,7 +48,6 @@ class LinksController < ApplicationController
       redirect_to links_path, notice: "Not authorized to edit this link" if @link.nil?
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
       params.require(:link).permit(:title, :url)
     end

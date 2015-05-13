@@ -1,4 +1,4 @@
-class LinksController < ApplicationController
+class Admin::LinksController < ApplicationController
   before_action :set_link, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, :except => [:index, :show]
   before_action :authorized_user, only: [:edit, :update, :destroy]
@@ -21,7 +21,7 @@ class LinksController < ApplicationController
     @link = current_user.links.build(link_params)
 
     if @link.save
-      redirect_to @link, notice: 'Link was successfully created.'
+      redirect_to admin_link_path(@link), notice: 'Link was successfully created.'
     else
       render :new
     end
@@ -29,23 +29,25 @@ class LinksController < ApplicationController
 
   def update
     if @link.update(link_params)
-      redirect_to @link, notice: 'Link was successfully updated.'
+      redirect_to admin_link_path(@link), notice: 'Link was successfully updated.'
     else
       render :edit
-    end
     end
   end
 
   def destroy
     @link.destroy
-    redirect_to links_url, notice: 'Link was successfully destroyed.'
-    end
+    redirect_to admin_links_url, notice: 'Link was successfully destroyed.'
   end
 
   private
+    def set_link
+      @link = Link.find(params[:id])
+    end
+
     def authorized_user
       @link = current_user.links.find_by(id: params[:id])
-      redirect_to links_path, notice: "Not authorized to edit this link" if @link.nil?
+      redirect_to admin_links_path, notice: "Not authorized to edit this link" if @link.nil?
     end
 
     def link_params

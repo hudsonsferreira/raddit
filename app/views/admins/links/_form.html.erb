@@ -1,4 +1,5 @@
-<%= form_for([:admin, @link]) do |f| %>
+<% url = if @link.id.blank? then new_admins_link_path else admins_link_path end %>
+<%= form_for([:admins, @link], url: admins_links_path) do |f| %>
   <% if @link.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h2>

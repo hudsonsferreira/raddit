@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  namespace :admin do
+  namespace :admins do
     resources :links
   end
 
-  root to: "admin/links#index"
+  root to: "admins/links#index"
 end

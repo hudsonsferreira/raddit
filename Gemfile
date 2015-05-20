@@ -18,8 +18,16 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
-  gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'shoulda-matchers', '~> 2.8.0'
+  gem 'rspec-rails', '~> 3.2.1'
+  # gem 'shoulda-matchers', '~> 2.8.0'#, require: false
+
 end
 
+# group :development do
+#   gem 'rspec-rails', '~> 3.2.1'
+# end
+
+group :test do
+  gem 'shoulda-matchers', require: false
+end

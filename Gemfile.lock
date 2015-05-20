@@ -206,10 +206,10 @@ DEPENDENCIES
   jquery-rails
   pry (~> 0.10.1)
   rails (= 4.2.1)
-  rspec-rails (~> 3.0)
+  rspec-rails (~> 3.2.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
-  shoulda-matchers (~> 2.8.0)
+  shoulda-matchers
   spring
   sqlite3
   therubyracer

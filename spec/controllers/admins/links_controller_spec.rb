@@ -4,13 +4,9 @@ describe Admins::LinksController, type: :controller do
 
     before { get :index }
 
-    it "responds successfully with an HTTP 200 status code" do
-      expect(response).to be_success
-    end
+    it { should respond_with(:success) }
 
-    it "renders the index template" do
-      expect(response).to render_template("index")
-    end
+    it { should render_template(:index) }
 
     it "loads all of the links into @links" do
       link1, link2 = Link.create!, Link.create!
@@ -34,20 +30,7 @@ describe Admins::LinksController, type: :controller do
           expect(Link.count).to eq(1)
         end
 
-        it "redirects to current link" do
-          expect(response).to redirect_to admins_link_path(1)
-        end
-      end
-
-      context "without params" do
-        it "creates the link" do
-          create(:user) do |user|
-            user.links.create!
-          end
-
-          expect(Link.count).to eq(1)
-          expect(response).to be_success
-        end
+        it { should redirect_to(admins_link_path(1)) }
       end
 
     end
@@ -57,12 +40,9 @@ describe Admins::LinksController, type: :controller do
         expect(controller.current_user).to be_nil
       end
 
-      it "redirects to sign_in page" do
-        post :create, link: attributes_for(:link)
+      before { post :create, link: attributes_for(:link) }
 
-        expect(Link.count).to eq(0)
-        expect(response).to redirect_to(new_user_session_path)
-      end
+      it { should redirect_to(new_user_session_path) }
     end
 
   end
@@ -94,16 +74,10 @@ describe Admins::LinksController, type: :controller do
         expect(link.url).to eq(valid_update_attributes[:url])
       end
 
-      it "redirects to current link" do
-        expect(response).to redirect_to(admins_link_path(link.id))
-      end
+      it { should redirect_to(admins_link_path(link)) }
     end
 
     context "without user" do
-
-      it "should not have a current user" do
-        expect(controller.current_user).to be_nil
-      end
 
       let(:valid_update_attributes) do
         {
@@ -117,9 +91,8 @@ describe Admins::LinksController, type: :controller do
         patch :update, id: link.id, link: valid_update_attributes
       end
 
-      it "redirects to new user session path" do
-        expect(response).to redirect_to(new_user_session_path)
-      end
+      it { should redirect_to(new_user_session_path) }
+
     end
 
     context "not authorized" do
@@ -148,9 +121,7 @@ describe Admins::LinksController, type: :controller do
         expect(controller.notice).to eq('Not authorized to edit this link')
       end
 
-      it "renders template index" do
-        expect(response).to redirect_to(admins_links_path)
-      end
+      it { should redirect_to(admins_links_path) }
     end
 
   end

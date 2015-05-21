@@ -51,6 +51,10 @@ describe Admins::LinksController, type: :controller do
           expect(Link.count).to eq(1)
         end
 
+        it "notice successfully" do
+          expect(controller.notice).to eq('Link was successfully created.')
+        end
+
         it { should redirect_to(admins_link_path(1)) }
       end
 
@@ -95,6 +99,10 @@ describe Admins::LinksController, type: :controller do
         expect(link.url).to eq(valid_update_attributes[:url])
       end
 
+      it "notice successfully" do
+        expect(controller.notice).to eq('Link was successfully updated.')
+      end
+
       it { should redirect_to(admins_link_path(link)) }
     end
 
@@ -129,7 +137,7 @@ describe Admins::LinksController, type: :controller do
       let(:link) { create(:link, user_id: 3) }
 
       before(:each) do
-        patch :update, id: link.id, link: valid_update_attributes
+        patch :update, id: link, link: valid_update_attributes
         link.reload
       end
 
@@ -139,10 +147,54 @@ describe Admins::LinksController, type: :controller do
       end
 
       it "notice not authorized" do
-        expect(controller.notice).to eq('Not authorized to edit this link')
+        expect(controller.notice).to eq('Not authorized to manage this link.')
       end
 
       it { should redirect_to(admins_links_path) }
+    end
+
+  end
+
+  describe "DELETE #destroy" do
+
+    context "with user" do
+      login_user
+
+      let(:link) { create(:link, user_id: controller.current_user.id) }
+
+      before { delete :destroy, id: link }
+
+      it "notice successfully" do
+        expect(controller.notice).to eq('Link was successfully destroyed.')
+      end
+
+      it { should redirect_to(admins_links_path) }
+
+    end
+
+    context "without user" do
+
+      let(:link) { create(:link) }
+
+      before { delete :destroy, id: link }
+
+      it { should redirect_to(new_user_session_path) }
+
+    end
+
+    context "not authorized" do
+      login_user
+
+      let(:link) { create(:link, user_id: 5) }
+
+      before { delete :destroy, id: link }
+
+      it "notice not authorized" do
+        expect(controller.notice).to eq('Not authorized to manage this link.')
+      end
+
+      it { should redirect_to(admins_links_path) }
+
     end
 
   end

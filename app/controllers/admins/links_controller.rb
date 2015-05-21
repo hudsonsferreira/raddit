@@ -4,7 +4,7 @@ class Admins::LinksController < ApplicationController
   before_action :authorized_user, only: [:edit, :update, :destroy]
 
   def index
-    @links = Admin::Link.all
+    @links = Link.all
   end
 
   def show
@@ -41,7 +41,7 @@ class Admins::LinksController < ApplicationController
 
   private
     def set_link
-      @link = Admin::Link.find(params[:id])
+      @link = Link.find(params[:id])
     end
 
     def authorized_user
@@ -50,6 +50,6 @@ class Admins::LinksController < ApplicationController
     end
 
     def link_params
-      params.require(:admin_link).permit(:title, :url)
+      params.require(:link).permit(:title, :url)
     end
 end

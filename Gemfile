@@ -20,13 +20,8 @@ group :development, :test do
   gem 'spring'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'rspec-rails', '~> 3.2.1'
-  # gem 'shoulda-matchers', '~> 2.8.0'#, require: false
-
+  gem 'faker', '~> 1.4.3'
 end
-
-# group :development do
-#   gem 'rspec-rails', '~> 3.2.1'
-# end
 
 group :test do
   gem 'shoulda-matchers', require: false

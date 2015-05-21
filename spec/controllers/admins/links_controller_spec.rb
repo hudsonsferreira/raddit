@@ -1,20 +1,19 @@
 describe Admins::LinksController, type: :controller do
 
   describe "GET #index" do
+
+    before { get :index }
+
     it "responds successfully with an HTTP 200 status code" do
-      get :index
       expect(response).to be_success
-      expect(response).to have_http_status(200)
     end
 
     it "renders the index template" do
-      get :index
       expect(response).to render_template("index")
     end
 
     it "loads all of the links into @links" do
       link1, link2 = Link.create!, Link.create!
-      get :index
       expect(assigns(:links)).to match_array([link1, link2])
     end
   end
@@ -68,7 +67,7 @@ describe Admins::LinksController, type: :controller do
 
   end
 
-  describe "PUT #update" do
+  describe "PATCH #update" do
     context "with user" do
       login_user
 

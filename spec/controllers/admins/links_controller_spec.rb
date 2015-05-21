@@ -14,6 +14,27 @@ describe Admins::LinksController, type: :controller do
     end
   end
 
+  describe "GET #new" do
+
+    context "with user" do
+      login_user
+
+      before { get :new }
+
+      it { should respond_with(:success) }
+      it { should render_template(:new) }
+      it { expect(assigns(:link)).to be_a_new(Link) }
+
+    end
+
+    context "without user" do
+
+      before { get :new }
+
+      it { should redirect_to(new_user_session_path) }
+    end
+  end
+
   describe "POST #create" do
 
     context "with user" do

@@ -11,7 +11,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise', '~> 3.4.1'
-gem 'bootstrap-sass', '~> 3.3.4.1'
+gem 'bourbon', '~> 4.2.3'
+gem 'bitters', '~> 1.0.0'
+gem 'neat', '~> 1.7.2'
 gem 'pry', '~> 0.10.1'
 
 group :development, :test do

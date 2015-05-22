@@ -1,8 +1,8 @@
 <% @links.each do |link| %>
-  <div class="link row clearfix">
+  <div>
     <h2>
       <%= link_to link.title, admins_link_path(link) %><br>
-      <small class="author">Submitted <%= time_ago_in_words(link.created_at) %> by <%= link.user.email %></small>
+      <small>Submitted <%= time_ago_in_words(link.created_at) %> by <%= link.user.email %></small>
     </h2>
   </div>
 <% end %>
